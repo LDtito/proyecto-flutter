@@ -1,58 +1,105 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter/rendering.dart';
 
 class MyApp extends StatelessWidget {
+  static String _title = 'ejemplo contador';
+
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
+      title: _title,
+      home: Contador(),
+    );
+  }
+}
+
+// aqui debemos digitar
+class Contador extends StatefulWidget {
+  Contador({super.key});
+
+  @override
+  State<Contador> createState() => _ContadorState();
+}
+
+class _ContadorState extends State<Contador> {
+  int _contar = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Ejemplo - Uno',
+          style: TextStyle(
+              fontSize: 50.0,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 1, 37, 3),
+              decoration: TextDecoration.underline),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Container(
-                child: const Text(
-                  'Hola mundo',
-                  style: TextStyle(
-                    fontSize: 35.0,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 6.0,
-                    color: Color.fromRGBO(102, 187, 106, 1),
-                    fontFamily: 'cursive',
-                  ),
-                ),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(4, 133, 32, 0.694),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 50.0,
+            ),
+            Text(
+              'El numero es : $_contar',
+              style: const TextStyle(fontSize: 35.0, color: Colors.lightBlue),
+            ),
+            const SizedBox(
+              child: Image(
+                image: AssetImage('images/persona2.jpg'),
               ),
-              //CircleAvatar(
-              // backgroundImage: AssetImage('images/persona11.jpg'),
-              // radius: 150.0,
-              SizedBox(
-                height: 250.0,
-                width: 350.0,
-                child: Image.asset('images/descarga(1).png'),
-              ),
-              SizedBox(
-                height: 250.0,
-                width: 350.0,
-                child: Image.asset('images/persona11.jpg'),
-              ),
-              SizedBox(
-                height: 250.0,
-                width: 350.0,
-                child: Image.network(
-                  'https://picsum.photos/id/237/200/300',
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Container(
+          height: 20.0,
+          color: Colors.amberAccent,
+        ),
+      ),
+      floatingActionButton: _crearbuttoms(),
+    );
+  }
+
+  _crearbuttoms() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(
+          width: 30.0,
+        ),
+        FloatingActionButton(
+          child: Icon(Icons.restore),
+          onPressed: () {
+            setState(() {
+              _contar = 0;
+            });
+          },
+          tooltip: 'el contador en 0',
+        ),
+        Expanded(child: SizedBox()),
+        FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            setState(() {
+              _contar = _contar + 1;
+              if (_contar == 20) {
+                _contar = 0;
+              }
+            });
+          },
+          tooltip: 'Incrementa el contador',
+        ),
+      ],
     );
   }
 }
