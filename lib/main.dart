@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto1/src/contador.dart';
+import 'package:proyect-flutter/src/icons.dart';
 
-
-void main() => runApp( MyApp());
+void main() => runApp(const MyApp());
